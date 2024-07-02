@@ -16,26 +16,26 @@
   <meta name="author" content="心流coding">
   <meta name="keywords" content="进取">
   
-    <meta name="description" content="缓存（Cache）是一种存储技术，可以存储数据，以便快速获取数据。缓存最重要的是两个特性：存储、快速获取。缓存的本质：「用空间换时间」，用快速存储的介质保存数据，以提升数据访问的速度。 在计算机的世界里，缓存被广泛应用于硬件（如 CPU 高速缓存、寄存器）和软件中（如浏览器缓存、CDN、应用程序中的缓存等）。 后台中的缓存 后台开发中，缓存的使用场景一般有：  提升接口响应速度：缓存相比 IO">
+    <meta name="description" content="跳跃表Skip List，跳跃表，是在简单链表的基础上优化了索引查找，时间复杂度为O(log(n))，可以和红黑树，b树媲美   跳跃表实现底层数据结构跳跃表是一种扩展的有序链表，它通过维护一个多级索引结构来实现快速查找。在跳跃表中，每个节点包含一个数据元素和一组指向其他节点的指针。这些指针分布在不同的层级，每个层级的指针数量都比下一层级少。最底层（第0层）包含所有的元素，而最高层则只包含少数几">
 <meta property="og:type" content="article">
-<meta property="og:title" content="缓存分类大全">
-<meta property="og:url" content="http://example.com/2024/07/02/%E7%BC%93%E5%AD%98%E5%88%86%E7%B1%BB%E5%A4%A7%E5%85%A8/index.html">
+<meta property="og:title" content="Redis跳跃表原理图解">
+<meta property="og:url" content="http://example.com/2024/07/02/Redis%E8%B7%B3%E8%B7%83%E8%A1%A8%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3/index.html">
 <meta property="og:site_name" content="心流coding的知识库">
-<meta property="og:description" content="缓存（Cache）是一种存储技术，可以存储数据，以便快速获取数据。缓存最重要的是两个特性：存储、快速获取。缓存的本质：「用空间换时间」，用快速存储的介质保存数据，以提升数据访问的速度。 在计算机的世界里，缓存被广泛应用于硬件（如 CPU 高速缓存、寄存器）和软件中（如浏览器缓存、CDN、应用程序中的缓存等）。 后台中的缓存 后台开发中，缓存的使用场景一般有：  提升接口响应速度：缓存相比 IO">
+<meta property="og:description" content="跳跃表Skip List，跳跃表，是在简单链表的基础上优化了索引查找，时间复杂度为O(log(n))，可以和红黑树，b树媲美   跳跃表实现底层数据结构跳跃表是一种扩展的有序链表，它通过维护一个多级索引结构来实现快速查找。在跳跃表中，每个节点包含一个数据元素和一组指向其他节点的指针。这些指针分布在不同的层级，每个层级的指针数量都比下一层级少。最底层（第0层）包含所有的元素，而最高层则只包含少数几">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021702376.jpeg">
-<meta property="article:published_time" content="2024-07-02T08:32:41.000Z">
-<meta property="article:modified_time" content="2024-07-02T09:03:12.393Z">
+<meta property="og:image" content="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022140571.webp">
+<meta property="article:published_time" content="2024-07-02T13:10:28.000Z">
+<meta property="article:modified_time" content="2024-07-02T13:47:21.388Z">
 <meta property="article:author" content="心流coding">
-<meta property="article:tag" content="缓存">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021702376.jpeg">
+<meta name="twitter:image" content="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022140571.webp">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>缓存分类大全 - 心流coding的知识库</title>
+  <title>Redis跳跃表原理图解 - 心流coding的知识库</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -209,13 +209,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021702376.jpeg') no-repeat center center; background-size: cover;">
+     style="background: url('https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022140571.webp') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="缓存分类大全"></span>
+            <span id="subtitle" data-typed-text="Redis跳跃表原理图解"></span>
           
         </div>
 
@@ -231,8 +231,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-02 16:32" pubdate>
-          星期二, 七月 2日 2024, 4:32 下午
+        <time datetime="2024-07-02 21:10" pubdate>
+          星期二, 七月 2日 2024, 9:10 晚上
         </time>
       </span>
     
@@ -244,7 +244,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.5k 字
+          1.9k 字
         
       </span>
     
@@ -256,7 +256,7 @@
         
         
           <!-- compatible with older versions-->
-          13 分钟
+          16 分钟
         
       </span>
     
@@ -301,58 +301,93 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">缓存分类大全</h1>
+            <h1 id="seo-header">Redis跳跃表原理图解</h1>
             
             
               <div class="markdown-body">
                 
-                <p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021702376.jpeg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>缓存（Cache）是一种存储技术，可以存储数据，以便快速获取数据。缓存最重要的是两个特性：存储、快速获取。缓存的本质：「用空间换时间」，用快速存储的介质保存数据，以提升数据访问的速度。</p>
-<p>在计算机的世界里，缓存被广泛应用于硬件（如 CPU 高速缓存、寄存器）和软件中（如浏览器缓存、CDN、应用程序中的缓存等）。</p>
-<p><strong>后台中的缓存</strong></p>
-<p>后台开发中，缓存的使用场景一般有：</p>
+                <p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022133437.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h1><p>Skip List，跳跃表，是在简单链表的基础上优化了索引查找，时间复杂度为O(log(n))，可以和红黑树，b树媲美</p>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022137589.png" srcset="/img/loading.gif" lazyload alt="image-20240702213703479"></p>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022132836.png" srcset="/img/loading.gif" lazyload alt="image-20240702212818877"></p>
+<h1 id="跳跃表实现"><a href="#跳跃表实现" class="headerlink" title="跳跃表实现"></a>跳跃表实现</h1><h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>跳跃表是一种扩展的有序链表，它通过维护一个多级索引结构来实现快速查找。在跳跃表中，每个节点包含一个数据元素和一组指向其他节点的指针。这些指针分布在不同的层级，每个层级的指针数量都比下一层级少。最底层（第0层）包含所有的元素，而最高层则只包含少数几个元素。这样，查找操作可以在高层级开始，快速跳过那些不需要的元素。</p>
 <ul>
-<li><strong>提升接口响应速度：</strong>缓存相比 IO 请求、数据库查询速度要快得多，适当使用缓存提升响应速度</li>
-<li><strong>降低数据源服务的负载压力：</strong>将需要高并发读取的数据缓存起来，当相同请求进来时返回缓存数据，减轻数据源服务（如数据库、上游系统）的负载压力</li>
-<li><strong>减少计算资源的浪费：</strong>将需要复杂且耗时计算的结果缓存起来，减少相同请求导致的重复计算资源浪费</li>
+<li>简单的有序链表</li>
 </ul>
-<h1 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h1><p>缓存策略通常分为两种，通读缓存和旁路缓存。</p>
-<h2 id="1-1-通读（read-through）缓存"><a href="#1-1-通读（read-through）缓存" class="headerlink" title="1.1 通读（read-through）缓存"></a>1.1 通读（read-through）缓存</h2><p>在使用通读缓存时，应用程序会尝试从缓存中获取数据。如果该数据已存在于缓存中，那么缓存会直接返回该数据。若缓存中并未包含所需数据，那么缓存会自行访问数据源来获取数据，并将获取的数据返回给应用程序，同时将这份数据保存在缓存中。如此一来，当应用程序下次需要同样的数据时，就能够直接从 read-through 缓存中获取，无需再次访问数据源。</p>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021637672.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>通读缓存的应用有很多，比如 CDN：</p>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022121209.png" srcset="/img/loading.gif" lazyload alt="现在还不懂什么是链表？_链表的复杂度-CSDN博客"></p>
+<p>在简单有序链表中，访问除头尾以外的节点，都需要通过遍历逐一比对来查找，时间复杂度位O(n)</p>
+<ul>
+<li>跳跃表</li>
+</ul>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022134539.png" srcset="/img/loading.gif" lazyload></p>
+<p>在跳跃表中，要访问节点节点3需要经过节点1、3共2个节点（通过L1索引）；要访问节点9需要经过节点1、7、9共3个节点（通过L3索引），和二分查找原理一样，时间复杂度为O(log(n))</p>
+<h2 id="查找、插入和删除操作"><a href="#查找、插入和删除操作" class="headerlink" title="查找、插入和删除操作"></a>查找、插入和删除操作</h2><ul>
+<li><p><strong>查找操作</strong></p>
+<p>从最高层索引的头节点开始，</p>
+</li>
+<li><ul>
+<li>如果当前节点的下一个节点的值小于要查找的值，则向右移动；</li>
+<li>如果当前节点的下一个节点的值大于要查找的值，则向下移动，</li>
+<li>直到找到目标值或者确定目标值不存在。</li>
+</ul>
+</li>
+<li><p>一个例子：</p>
+</li>
+<li><p>假设初始Skip List跳跃列表中已经存在这些元素，他们分布的结构如下所示：\</p>
+</li>
+<li><p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022140558.webp" srcset="/img/loading.gif" lazyload alt="Skip List 跳跃列表初始.png"><br> 此时查询节点88，它的查询路线如下所示：\</p>
+</li>
+<li><p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022140571.webp" srcset="/img/loading.gif" lazyload alt="Skip List 跳跃列表查询.png"></p>
+</li>
+<li><ol>
+<li>从Skip List跳跃列表最顶层level3开始，往后查询到10 &lt; 88 &amp;&amp; 后续节点值为null &amp;&amp; 存在下层level2</li>
+<li>level2 10往后遍历，27 &lt; 88 &amp;&amp; 后续节点值为null &amp;&amp; 存在下层level1</li>
+<li>level1 27往后遍历，88 &#x3D; 88，查询命中</li>
+</ol>
+</li>
+<li><p><strong>插入操作</strong></p>
+<p>首先进行查找操作，找到插入位置。然后随机生成一个层数，根据这个层数在每一层插入新节点。</p>
+<p>Skip List的初始结构与2.3中的初始结构一致，此时假设插入的新节点元素值为90，插入路线如下所示：</p>
+<ol>
+<li>查询插入位置，与Skip List查询方式一致，这里需要查询的是第一个比90大的节点位置，插入在这个节点的前面， 88 &lt; 90 &lt; 100</li>
+<li>构造一个新的节点Node(90)，为插入的节点Node(90)计算一个随机level，这里假设计算的是1，这个level时随机计算的，可能时1、2、3、4…均有可能，level越大的可能越小，主要看随机因子x ，层数的概率大致计算为 (1&#x2F;x)^level ，如果level大于当前的最大level3，需要新增head和tail节点</li>
+<li>节点构造完毕后，需要将其插入列表中，插入十分简单步骤 -&gt; Node(88).next &#x3D; Node(90); Node(90).prev &#x3D; Node(80); Node(90).next &#x3D; Node(100); Node(100).prev &#x3D; Node(90);</li>
+</ol>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022142621.webp" srcset="/img/loading.gif" lazyload alt="Skip List插入节点.png"></p>
+</li>
+<li><p><strong>删除操作：</strong></p>
+<p>首先进行查找操作，找到要删除的节点。然后在每一层删除这个节点。</p>
+</li>
+</ul>
+<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>由于跳跃表的层级结构，查找、插入和删除操作的平均时间复杂度和最坏时间复杂度都是O(log n)，其中n是跳跃表中元素的数量。这使得跳跃表在处理大量数据时具有很高的效率。同时，跳跃表的空间复杂度是O(n)，因为每个元素都需要存储在跳跃表中。</p>
+<h1 id="Redis中的跳跃表"><a href="#Redis中的跳跃表" class="headerlink" title="Redis中的跳跃表"></a>Redis中的跳跃表</h1><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Redis中的跳跃表实现与基本的跳跃表有一些不同。在Redis中，跳跃表的每个节点除了包含一个指向下一个节点的指针数组外，还包含一个反向指针，指向前一个节点。这样，Redis的跳跃表可以支持双向遍历。此外，Redis的跳跃表还包含一个<code>header</code>节点和一个<code>tail</code>节点，分别指向跳跃表中的第一个节点和最后一个节点。</p>
+<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407022146504.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* ZSETs use a specialized version of Skiplists */</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> &#123;</span><br>    sds ele;<br>    <span class="hljs-type">double</span> score;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">backward</span>;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistLevel</span> &#123;</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">forward</span>;</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> span;<br>    &#125; level[];<br>&#125; zskiplistNode;<br></code></pre></td></tr></table></figure>
+
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>Redis中的跳跃表具有以下特性：</p>
+<ul>
+<li>支持快速查找：由于跳跃表的多级索引结构，Redis可以在<code>O(log N)</code>的时间复杂度内查找到任意节点。</li>
+<li>支持范围查找：由于跳跃表的有序性，Redis可以在<code>O(log N)</code>的时间复杂度内找到满足特定范围条件的所有节点。</li>
+<li>支持双向遍历：由于每个节点都包含一个反向指针，Redis的跳跃表可以支持从任意节点开始的双向遍历。</li>
+</ul>
+<h1 id="跳跃表与其他数据结构的比较"><a href="#跳跃表与其他数据结构的比较" class="headerlink" title="跳跃表与其他数据结构的比较"></a>跳跃表与其他数据结构的比较</h1><h2 id="跳跃表与平衡树"><a href="#跳跃表与平衡树" class="headerlink" title="跳跃表与平衡树"></a>跳跃表与平衡树</h2><p>平衡树（如AVL树、红黑树等）和跳跃表都是可以进行快速查找的数据结构，它们的查找、插入和删除操作的时间复杂度都是<code>O(log N)</code>。然而，平衡树的实现通常比跳跃表复杂，需要处理更多的旋转和平衡操作。相比之下，跳跃表的实现更简单，更易于理解和操作。</p>
+<h2 id="跳跃表与哈希表"><a href="#跳跃表与哈希表" class="headerlink" title="跳跃表与哈希表"></a>跳跃表与哈希表</h2><p>哈希表的查找、插入和删除操作的平均时间复杂度是<code>O(1)</code>，优于跳跃表的<code>O(log N)</code>。然而，哈希表不支持有序操作，例如获取最小值、最大值或者进行范围查找。而跳跃表由于其有序性，可以很好地支持这些操作。</p>
+<h2 id="跳跃表与链表"><a href="#跳跃表与链表" class="headerlink" title="跳跃表与链表"></a>跳跃表与链表</h2><p>链表是一种基础的数据结构，其查找、插入和删除操作的时间复杂度是<code>O(N)</code>。而跳跃表是对链表的扩展，通过添加多级索引，将查找、插入和删除操作的时间复杂度降低到<code>O(log N)</code>。同时，跳跃表保留了链表的有序性，可以支持一些链表无法支持的有序操作。</p>
+<h1 id="Redis中跳跃表的应用场景"><a href="#Redis中跳跃表的应用场景" class="headerlink" title="Redis中跳跃表的应用场景"></a>Redis中跳跃表的应用场景</h1><p>在Redis中，跳跃表主要被用于实现有序集合<code>Sorted Set</code>。</p>
+<p>有序集合是Redis支持的一种数据类型，它不仅可以存储一组元素，还可以为每个元素关联一个分数。通过这个分数，Redis可以快速地获取分数最高或最低的元素，或者获取满足特定分数范围的所有元素。这些操作都是通过跳跃表来实现的。</p>
+<p>跳跃表在Redis集群节点中用作内部数据结构。</p>
 <blockquote>
-<p>CDN（Content Delivery Network）即内容分发网络，是一种分布式的网络架构。依赖于服务商提供的广泛分布于各地的 CDN 服务器，通过把数据分发并缓存到各地的 CDN 服务器上，当用户请求数据时，CDN 会匹配离用户距离最近的节点并返回缓存数据，以此来提高用户访问资源的速度。CDN 一般用来加速静态资源的传输，比如图片、CSS、HTML 等内容。而动态的内容，如搜索结果、单据信息等则不合适，这类数据需要应用服务器实时计算后才能返回。</p>
+<p>跳跃表在Redis中仅用于有序集合和集群节点内部数据结构两种场景。</p>
 </blockquote>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021640286.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<h2 id="1-2-旁路（cache-aside）缓存"><a href="#1-2-旁路（cache-aside）缓存" class="headerlink" title="1.2 旁路（cache-aside）缓存"></a>1.2 旁路（cache-aside）缓存</h2><p>与通读缓存不同，旁路缓存不直接与数据源打交道。应用程序尝试从旁路缓存获取数据，如果数据不存在，则返回空。应用程序自行请求数据源获取数据，并写入旁路缓存。这样下次相同的请求到达时，应用程序从旁路缓存中则会获取到数据。</p>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021641827.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>通读缓存和旁路缓存这两种策略，一般来说都会灵活应用、互相包含。比如通读缓存中，对数据的查询和写缓存，使用的就是旁路缓存策略。而该实现被整体封装起来，对外表现的则是通读缓存策略。</p>
-<p>在后台服务中，缓存的类型可以分为本地缓存和分布式缓存。</p>
-<h1 id="缓存类型"><a href="#缓存类型" class="headerlink" title="缓存类型"></a>缓存类型</h1><h2 id="2-1-本地缓存（local-cache）"><a href="#2-1-本地缓存（local-cache）" class="headerlink" title="2.1 本地缓存（local cache）"></a>2.1 本地缓存（local cache）</h2><p>本地缓存，与应用程序的进程有相同的生命周期，存放于应用程序的堆空间（heap）中。</p>
-<ul>
-<li><p>优势：</p>
-<p>使用简单；无外部依赖；读取速度快（无网络 IO 请求）；</p>
-</li>
-<li><p>缺点：</p>
-<p>空间小：应用程序的服务器资源有限，所以本地缓存的空间小；分布式一致性问题：如果后台服务是分布式架构的，那么不同的服务实例之间的本地缓存可能会有差异；无法持久化：本地缓存会随着进程结束而被销毁，无法持久化。</p>
-</li>
+<h1 id="跳跃表的优缺点"><a href="#跳跃表的优缺点" class="headerlink" title="跳跃表的优缺点"></a>跳跃表的优缺点</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>跳跃表的查找、插入和删除操作的时间复杂度都是<code>O(log N)</code>，在处理大量数据时具有很高的效率。</li>
+<li>跳跃表的实现相对简单，比如相比于平衡树，跳跃表不需要进行复杂的旋转和平衡操作。</li>
+<li>跳跃表支持有序操作，如获取最小值、最大值或进行范围查找。</li>
 </ul>
-<h2 id="2-2-分布式缓存（remote-cache）"><a href="#2-2-分布式缓存（remote-cache）" class="headerlink" title="2.2 分布式缓存（remote cache）"></a>2.2 分布式缓存（remote cache）</h2><p>分布式缓存，也可理解为远端缓存。使用外部的缓存服务，独立部署，与应用程序解藕。</p>
-<ul>
-<li><p>优势：</p>
-<p>空间充足：外部存储一般空间都很充足；无分布式一致性问题：不同的服务实例连接同一个缓存服务，不存在一致性问题；主流的分布式缓存，如 redis，支持数据持久化和恢复，当缓存服务挂了可以恢复数据。</p>
-</li>
-<li><p>缺点：</p>
-<p>引入外部依赖、需要部署和运维单独的缓存服务。</p>
-</li>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>跳跃表的空间复杂度是<code>O(N)</code>，每个元素都需要存储在跳跃表中，这可能会占用较多的内存。</li>
+<li>跳跃表的性能依赖于随机数生成器，如果随机数生成器的质量不高，可能会影响跳跃表的性能。</li>
 </ul>
-<h1 id="缓存淘汰策略"><a href="#缓存淘汰策略" class="headerlink" title="缓存淘汰策略"></a>缓存淘汰策略</h1><p>由于缓存的空间是有限的，如果缓慢的空间被使用完了，则需要淘汰旧的数据，腾出空间给新的数据使用。缓存淘汰常用的几种策略有如下几种。</p>
-<h2 id="3-1-FIFO（First-In-First-Out）算法"><a href="#3-1-FIFO（First-In-First-Out）算法" class="headerlink" title="3.1 FIFO（First In First Out）算法"></a>3.1 FIFO（First In First Out）算法</h2><p>FIFO 算法是最简单最好理解的，其策略是：先进先出，如果一个数据的写入时间越早，说明将来被访问的几率越低。因此 FIFO 算法优先淘汰最早写入的数据。</p>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021643891.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<h2 id="3-2-LRU（Least-Recently-Used）算法"><a href="#3-2-LRU（Least-Recently-Used）算法" class="headerlink" title="3.2 LRU（Least Recently Used）算法"></a>3.2 LRU（Least Recently Used）算法</h2><p>LRU 算法，即最近最少使用算法。如果一个数据最近被访问了，那么将来被访问的几率越高。反之，如果一个数据很久都没有访问，那么将来被访问的几率越低。其淘汰策略就是：优先淘汰最久没有被使用到的数据。LRU 通常使用双向链表+哈希表来实现。</p>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021644612.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<h2 id="3-3-LFU（Least-Frequently-Used）算法"><a href="#3-3-LFU（Least-Frequently-Used）算法" class="headerlink" title="3.3 LFU（Least Frequently Used）算法"></a>3.3 LFU（Least Frequently Used）算法</h2><p>LFU 算法，即最少使用算法。如果一个数据被访问的次数越多，那么将来被访问的几率越高。反之，如果一个数据被访问的次数越少，那么将来被访问的几率越小。其淘汰策略就是：优先淘汰最少被使用的数据。LFU 算法可以使用小顶堆+哈希表来实现。</p>
-<p><img src="https://picgo-1326631670.cos.ap-guangzhou.myqcloud.com/202407021645845.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
 
                 
               </div>
@@ -393,7 +428,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%BC%93%E5%AD%98/" class="print-no-link">#缓存</a>
+        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
       
     </div>
   
@@ -405,8 +440,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>缓存分类大全</div>
-      <div>http://example.com/2024/07/02/缓存分类大全/</div>
+      <div>Redis跳跃表原理图解</div>
+      <div>http://example.com/2024/07/02/Redis跳跃表原理图解/</div>
     </div>
     <div class="license-meta">
       
@@ -450,18 +485,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/02/Redis%E8%B7%B3%E8%B7%83%E8%A1%A8%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3/" title="Redis跳跃表原理图解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis跳跃表原理图解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/30/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" title="我的第一篇博客文章">
-                        <span class="hidden-mobile">我的第一篇博客文章</span>
+                      <a href="/2024/07/02/%E7%BC%93%E5%AD%98%E5%88%86%E7%B1%BB%E5%A4%A7%E5%85%A8/" title="缓存分类大全">
+                        <span class="hidden-mobile">缓存分类大全</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
